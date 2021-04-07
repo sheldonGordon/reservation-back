@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import fr.chatelain.reservation.model.Service;
 
 @Repository
-public interface ServiceRepo extends JpaRepository<Service, String> {
+public interface ServiceRepository extends JpaRepository<Service, String> {
     
 }
