@@ -3,7 +3,17 @@ package fr.chatelain.reservation.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Password extends AbstractEntities {
 
     private static final long serialVersionUID = 6338037257230920268L;
@@ -13,31 +23,4 @@ public class Password extends AbstractEntities {
 
     @Column
     private String salt;
-
-    public Password() {
-        super();
-    }
-
-    public Password(String hash, String salt) {
-        super();
-        this.hash = hash;
-        this.salt = salt;
-    }
-
-    public String getHash() {
-        return hash;
-    }
-
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
 }

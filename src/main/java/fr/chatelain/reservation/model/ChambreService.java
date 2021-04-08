@@ -2,7 +2,6 @@ package fr.chatelain.reservation.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,17 +14,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CodePromo extends AbstractEntities {
+public class ChambreService extends AbstractEntities {
 
-    private static final long serialVersionUID = 8505905252780920773L;
-
-    @Column
-    private String code;
+    private static final long serialVersionUID = 2994267481374616237L;
 
     @Column
-    private double pourcentage;
-
-    @OneToOne
-    private DateDebutFin validite;
-
+    private String libelle;
 }

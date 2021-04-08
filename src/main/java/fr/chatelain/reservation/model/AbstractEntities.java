@@ -11,7 +11,7 @@ public abstract class AbstractEntities implements Serializable {
 
     private static final long serialVersionUID = 5601493523785739869L;
 
-    public AbstractEntities() {
+    protected AbstractEntities() {
         this.id = UUID.randomUUID().toString();
     }
 

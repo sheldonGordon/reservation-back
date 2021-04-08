@@ -3,7 +3,17 @@ package fr.chatelain.reservation.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Photos extends AbstractEntities {
 
     private static final long serialVersionUID = 7714218428585395888L;
@@ -16,33 +26,4 @@ public class Photos extends AbstractEntities {
 
     @Column
     private String typeMime;
-
-    public Photos() {
-        super();
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getTypeMime() {
-        return typeMime;
-    }
-
-    public void setTypeMime(String typeMime) {
-        this.typeMime = typeMime;
-    }
-
 }

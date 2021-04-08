@@ -7,7 +7,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reservation extends AbstractEntities {
 
     private static final long serialVersionUID = -1872170167391711254L;
@@ -24,63 +34,9 @@ public class Reservation extends AbstractEntities {
     @ManyToOne
     private Compte client;
 
-    @Column
+    @Column(columnDefinition = "boolean default false")
     private boolean annulation;
 
     @ManyToOne
     private CodePromo promotion;
-
-    public Reservation() {
-        super();
-        this.setAnnulation(false);
-    }
-
-    public List<Option> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<Option> options) {
-        this.options = options;
-    }
-
-    public DateDebutFin getDateDebutfin() {
-        return dateDebutfin;
-    }
-
-    public void setDateDebutfin(DateDebutFin dateDebutfin) {
-        this.dateDebutfin = dateDebutfin;
-    }
-
-    public Chambre getChambre() {
-        return chambre;
-    }
-
-    public void setChambre(Chambre chambre) {
-        this.chambre = chambre;
-    }
-
-    public Compte getClient() {
-        return client;
-    }
-
-    public void setClient(Compte client) {
-        this.client = client;
-    }
-
-    public boolean isAnnulation() {
-        return annulation;
-    }
-
-    public void setAnnulation(boolean annulation) {
-        this.annulation = annulation;
-    }
-
-    public CodePromo getPromotion() {
-        return promotion;
-    }
-
-    public void setPromotion(CodePromo promotion) {
-        this.promotion = promotion;
-    }
-
 }
