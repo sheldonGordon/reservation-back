@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Scope("prototype")
-public class GenericJpaRepository<T extends Serializable> extends AbstractJpaRepository<T>
-        implements IGenericRepository<T> {
+public class GenericJpaRepository<T extends Serializable> extends AbstractJpaRepository<T> {
 
 }
