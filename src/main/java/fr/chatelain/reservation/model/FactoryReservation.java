@@ -5,11 +5,11 @@ public class FactoryReservation {
     private FactoryReservation() {
     }
 
-    public static ChambreService getInstanceService() {
+    public static ChambreService getInstanceChambreService() {
         return new ChambreService();
     }
 
-    public static ChambreService getInstanceService(String libelle) {
+    public static ChambreService getInstanceChambreService(String libelle) {
         return new ChambreService(libelle);
     }
 }

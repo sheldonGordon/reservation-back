@@ -22,10 +22,10 @@ public class ChambreServiceController {
 
     @GetMapping("/")
     public String getHelloWorld() {
-        ChambreService CS1 = FactoryReservation.getInstanceService("test 1");
-        ChambreService CS2 = FactoryReservation.getInstanceService("test 2");
-        ChambreService CS3 = FactoryReservation.getInstanceService("test 3");
-        ChambreService CS4 = FactoryReservation.getInstanceService("test 4");
+        ChambreService CS1 = FactoryReservation.getInstanceChambreService("test 1");
+        ChambreService CS2 = FactoryReservation.getInstanceChambreService("test 2");
+        ChambreService CS3 = FactoryReservation.getInstanceChambreService("test 3");
+        ChambreService CS4 = FactoryReservation.getInstanceChambreService("test 4");
         chambreServiceService.save(CS1);
         chambreServiceService.save(CS2);
         chambreServiceService.save(CS3);
@@ -34,7 +34,7 @@ public class ChambreServiceController {
         return "Hello World!";
     }
 
-    @GetMapping("/services")
+    @GetMapping("/chambreServices")
     public List<ChambreService> getAllServices() {
         return chambreServiceService.findAll();
     }
