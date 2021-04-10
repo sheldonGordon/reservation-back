@@ -23,32 +23,32 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Chambre extends AbstractEntities {
 
-    private static final long serialVersionUID = 1365648515210158917L;
+        private static final long serialVersionUID = 1365648515210158917L;
 
-    @Column
-    private String nom;
+        @Column
+        private String nom;
 
-    @Column
-    private Double nombrePersonne;
+        @Column
+        private int nombrePersonne;
 
-    @Column
-    private BigDecimal prix;
+        @Column
+        private BigDecimal prix;
 
-    @Column
-    private Double superficie;
+        @Column
+        private double superficie;
 
-    @OneToMany
-    private List<Photos> photos;
+        @OneToMany
+        private List<Photos> photos;
 
-    @ManyToMany
-    @JoinTable(name = "chambre_services", joinColumns = {
-            @JoinColumn(name = "chambre_id", referencedColumnName = "id", nullable = false, updatable = false) }, inverseJoinColumns = {
-                    @JoinColumn(name = "services_id", referencedColumnName = "id", nullable = false, updatable = false) })
-    private List<ChambreService> services;
+        @ManyToMany
+        @JoinTable(name = "chambre_services", joinColumns = {
+                        @JoinColumn(name = "chambre_id", referencedColumnName = "id", nullable = false, updatable = false) }, inverseJoinColumns = {
+                                        @JoinColumn(name = "services_id", referencedColumnName = "id", nullable = false, updatable = false) })
+        private List<ChambreService> services;
 
-    @ManyToMany
-    @JoinTable(name = "chambre_indisponibilites", joinColumns = {
-            @JoinColumn(name = "chambre_id", referencedColumnName = "id", nullable = false, updatable = false) }, inverseJoinColumns = {
-                    @JoinColumn(name = "indisponibilites_id", referencedColumnName = "id", nullable = false, updatable = false) })
-    private List<DateDebutFin> indisponibilites;
+        @ManyToMany
+        @JoinTable(name = "chambre_indisponibilites", joinColumns = {
+                        @JoinColumn(name = "chambre_id", referencedColumnName = "id", nullable = false, updatable = false) }, inverseJoinColumns = {
+                                        @JoinColumn(name = "indisponibilites_id", referencedColumnName = "id", nullable = false, updatable = false) })
+        private List<DateDebutFin> indisponibilites;
 }

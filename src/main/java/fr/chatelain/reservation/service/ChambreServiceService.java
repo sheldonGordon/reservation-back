@@ -39,8 +39,10 @@ public class ChambreServiceService implements IGenericService<ChambreService> {
     }
 
     @Override
-    public void save(ChambreService entity) {
+    public ChambreService save(ChambreService entity) {
         genericJpaRepository.save(entity);
+
+        return getById(entity.getId());
     }
 
     @Override
