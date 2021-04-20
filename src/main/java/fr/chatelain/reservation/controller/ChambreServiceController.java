@@ -37,7 +37,6 @@ public class ChambreServiceController {
         chambreServiceService.save(cs2);
         chambreServiceService.save(cs3);
         chambreServiceService.save(cs4);
-
         return "Hello World!";
     }
 
