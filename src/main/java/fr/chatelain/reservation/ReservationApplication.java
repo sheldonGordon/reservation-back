@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ReservationApplication {
 
 	public static void main(String[] args) {
+		System.err.println(System.getProperty("db_hostname"));
 		SpringApplication.run(ReservationApplication.class, args);
 	}
 
