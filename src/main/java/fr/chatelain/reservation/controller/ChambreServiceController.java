@@ -49,6 +49,12 @@ public class ChambreServiceController {
         return listChambreServiceDto;
     }
 
+    @GetMapping("/chambreServices/{id}")
+    public ChambreServiceDto getChambreService(@PathVariable(name = "id") String id) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(chambreServiceService.getById(id), ChambreServiceDto.class);
+    }
+
     @PostMapping("/chambreServices")
     public ChambreServiceDto saveChambreService(@RequestParam(name = "libelle") String libelle) {
         ChambreService chambreService = FactoryReservation.getInstanceChambreService(libelle);
