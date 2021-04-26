@@ -47,6 +47,7 @@ public class ChambreServiceService implements IGenericService<ChambreService> {
 
     @Override
     public ChambreService update(ChambreService entity) {
+        deleteById(entity.getId());
         return genericJpaRepository.update(entity);
     }
 

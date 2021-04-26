@@ -2,83 +2,122 @@ package fr.chatelain.reservation;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import fr.chatelain.reservation.model.ChambreService;
-import fr.chatelain.reservation.model.FactoryReservation;
 import fr.chatelain.reservation.model.dto.ChambreServiceDto;
-import fr.chatelain.reservation.service.ChambreServiceService;
 
-
-@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@TestMethodOrder(OrderAnnotation.class)
 class TestsChambreService {
-	
+
+	private static final String MY_UUID = UUID.randomUUID().toString();
+
+	private static final String MY_LIBELLE = "MonService";
+
 	@LocalServerPort
-    int randomServerPort;
+	private int RANDOM_SERVER_PORT;
 
-	@Autowired
-    private ChambreServiceService chambreServiceService;
-	
+	private String baseUrl;
+
+	private String getUrl;
+
+	private String getUrlbyId;
+
+	private String postUrl;
+
+	private String putUrl;
+
+	private String deleteUrl;
+
+	@BeforeEach
+	public void initUrl() {
+		this.baseUrl = "http://localhost:" + RANDOM_SERVER_PORT + "/api/chambreServices";
+		this.getUrl = baseUrl;
+		this.getUrlbyId = baseUrl + "/{id}";
+		this.postUrl = baseUrl;
+		this.putUrl = baseUrl;
+		this.deleteUrl = baseUrl + "/{id}";
+	}
+
+	private RestTemplate restTemplate = new RestTemplate();
+
 	@Test
-	public void saveChambreService() throws URISyntaxException {
+	@Order(1)
+	public void saveChambreServiceSuccess() throws URISyntaxException {
+		URI uri = new URI(postUrl);
 
-		RestTemplate restTemplate = new RestTemplate();
-
-        final String baseUrl = "http://localhost:"+randomServerPort+"/api/chambreServices?libelle=MonService";
-        URI uri = new URI(baseUrl);
-
+		ChambreServiceDto entityDto = new ChambreServiceDto();
+		entityDto.setId(MY_UUID);
+		entityDto.setLibelleService(MY_LIBELLE);
 
 		HttpHeaders headers = new HttpHeaders();
-        headers.set("X-COM-PERSIST", "true");      
- 
-        /*HttpEntity<Employee> request = new HttpEntity<>(employee, headers);*/
-         
-        ResponseEntity<String> result = restTemplate.postForEntity(uri, null, String.class);
-         
-        //Verify request succeed
-        Assertions.assertEquals(200, result.getStatusCodeValue());
+		headers.set("X-COM-PERSIST", "true");
+
+		HttpEntity<ChambreServiceDto> request = new HttpEntity<>(entityDto, headers);
+
+		ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.POST, request, String.class);
+
+		Assertions.assertEquals(200, result.getStatusCodeValue());
 	}
 
 	@Test
-	public void deleteChambreService() {
-		String libelle="monLibelle";
-		ChambreService chambreService = FactoryReservation.getInstanceChambreService(libelle);
+	@Order(2)
+	public void getChambreServiceSuccess() throws URISyntaxException {
+		URI uri = new URI(getUrl);
 
-        chambreServiceService.save(chambreService);
+		ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.GET, null, String.class);
 
-        ModelMapper modelMapper = new ModelMapper();
-        ChambreServiceDto maDto = modelMapper.map(chambreService, ChambreServiceDto.class);
-
-		chambreServiceService.deleteById(maDto.getId());
-		
-        //Verify request succeed
-        Assertions.assertEquals(libelle, maDto.getLibelleService());
+		Assertions.assertEquals(200, result.getStatusCodeValue());
 	}
 
 	@Test
-	public void getChambreService() {
-		String libelle="monLibelle";
-		ChambreService chambreService = FactoryReservation.getInstanceChambreService(libelle);
+	@Order(3)
+	public void getChambreServiceByIdSuccess() throws URISyntaxException {
+		ResponseEntity<String> result = restTemplate.exchange(getUrlbyId, HttpMethod.GET, null, String.class, MY_UUID);
 
-        chambreServiceService.save(chambreService);
+		Assertions.assertEquals(200, result.getStatusCodeValue());
+	}
 
-        ModelMapper modelMapper = new ModelMapper();
-        ChambreServiceDto maDto = modelMapper.map(chambreService, ChambreServiceDto.class);
+	@Test
+	@Order(4)
+	public void updateChambreServiceSuccess() throws URISyntaxException {
+		URI uri = new URI(putUrl);
 
-		chambreServiceService.deleteById(maDto.getId());
+		ChambreServiceDto entityDto = new ChambreServiceDto();
+		entityDto.setId(MY_UUID);
+		entityDto.setLibelleService("LibelleChanged");
 
-		ChambreService chambreServiceNull = chambreServiceService.getById(maDto.getId());
-        //Verify request succeed
-        Assertions.assertEquals(null, chambreServiceNull);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("X-COM-PERSIST", "true");
+
+		HttpEntity<ChambreServiceDto> request = new HttpEntity<>(entityDto, headers);
+
+		ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.PUT, request, String.class);
+
+		Assertions.assertEquals(200, result.getStatusCodeValue());
+	}
+
+	@Test
+	@Order(5)
+	public void deleteChambreServiceSuccess() throws URISyntaxException {
+		ResponseEntity<String> result = restTemplate.exchange(deleteUrl, HttpMethod.DELETE, null, String.class,
+				MY_UUID);
+
+		Assertions.assertEquals(200, result.getStatusCodeValue());
 	}
 }
