@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -19,7 +20,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.dto.ChambreServiceDto;
+import fr.chatelain.reservation.service.ChambreServiceService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
@@ -54,10 +57,34 @@ class TestsChambreService {
 		this.deleteUrl = baseUrl + "/{id}";
 	}
 
+	@Autowired
+	private ChambreServiceService service;
+
 	private RestTemplate restTemplate = new RestTemplate();
 
 	@Test
 	@Order(1)
+	public void contructorChambreServiceSuccess(){
+		ChambreService entity = service.getInstance();
+
+		Assertions.assertNotNull(entity.getId());
+
+		ChambreService entityWithLibelle = service.getInstance("libelle");
+
+		Assertions.assertNotNull(entityWithLibelle.getLibelle());
+	}
+
+	@Test
+	@Order(2)
+	public void equalsAndHashCodeChambreServiceSuccess(){
+		ChambreService entity = service.getInstance();
+		ChambreService entity2 = service.getInstance();
+
+		Assertions.assertFalse(entity.equals(entity2));
+	}
+
+	@Test
+	@Order(3)
 	public void saveChambreServiceSuccess() throws URISyntaxException {
 		URI uri = new URI(postUrl);
 
@@ -76,7 +103,7 @@ class TestsChambreService {
 	}
 
 	@Test
-	@Order(2)
+	@Order(4)
 	public void getChambreServiceSuccess() throws URISyntaxException {
 		URI uri = new URI(getUrl);
 
@@ -86,7 +113,7 @@ class TestsChambreService {
 	}
 
 	@Test
-	@Order(3)
+	@Order(5)
 	public void getChambreServiceByIdSuccess() throws URISyntaxException {
 		ResponseEntity<String> result = restTemplate.exchange(getUrlbyId, HttpMethod.GET, null, String.class, MY_UUID);
 
@@ -94,7 +121,7 @@ class TestsChambreService {
 	}
 
 	@Test
-	@Order(4)
+	@Order(6)
 	public void updateChambreServiceSuccess() throws URISyntaxException {
 		URI uri = new URI(putUrl);
 
@@ -113,7 +140,7 @@ class TestsChambreService {
 	}
 
 	@Test
-	@Order(5)
+	@Order(7)
 	public void deleteChambreServiceSuccess() throws URISyntaxException {
 		ResponseEntity<String> result = restTemplate.exchange(deleteUrl, HttpMethod.DELETE, null, String.class,
 				MY_UUID);
