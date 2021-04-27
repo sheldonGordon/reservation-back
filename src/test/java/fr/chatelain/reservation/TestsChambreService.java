@@ -81,6 +81,7 @@ class TestsChambreService {
 		ChambreService entity2 = service.getInstance();
 
 		Assertions.assertFalse(entity.equals(entity2));
+		Assertions.assertFalse(entity.hashCode() == entity2.hashCode());
 	}
 
 	@Test
