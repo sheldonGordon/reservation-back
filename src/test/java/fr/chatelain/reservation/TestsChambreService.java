@@ -23,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.dto.ChambreServiceDto;
 import fr.chatelain.reservation.service.ChambreServiceService;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
@@ -77,11 +78,7 @@ class TestsChambreService {
 	@Test
 	@Order(2)
 	public void equalsAndHashCodeChambreServiceSuccess(){
-		ChambreService entity = service.getInstance();
-		ChambreService entity2 = service.getInstance();
-
-		Assertions.assertFalse(entity.equals(entity2));
-		Assertions.assertFalse(entity.hashCode() == entity2.hashCode());
+		EqualsVerifier.simple().forClass(ChambreService.class).verify();
 	}
 
 	@Test
