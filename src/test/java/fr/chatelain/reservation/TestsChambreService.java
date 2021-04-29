@@ -17,6 +17,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,6 +29,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
 class TestsChambreService {
+
 
 	private static final String MY_UUID = UUID.randomUUID().toString();
 
@@ -115,7 +117,7 @@ class TestsChambreService {
 	public void getChambreServiceByIdSuccess() throws URISyntaxException {
 		ResponseEntity<String> result = restTemplate.exchange(getUrlbyId, HttpMethod.GET, null, String.class, MY_UUID);
 
-		Assertions.assertEquals(200, result.getStatusCodeValue());
+		Assertions.assertEquals(HttpStatus.FOUND.value(), result.getStatusCodeValue());
 	}
 
 	@Test
@@ -144,5 +146,12 @@ class TestsChambreService {
 				MY_UUID);
 
 		Assertions.assertEquals(200, result.getStatusCodeValue());
+	}
+
+	@Test
+	@Order(8)
+	public void getChambreServiceByIdFailed() throws URISyntaxException {
+		ResponseEntity<String> result = restTemplate.exchange(getUrlbyId, HttpMethod.GET, null, String.class, UUID.randomUUID().toString());
+		Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatusCodeValue());
 	}
 }

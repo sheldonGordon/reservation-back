@@ -2,9 +2,13 @@ package fr.chatelain.reservation.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +18,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import fr.chatelain.reservation.exceptions.RepositoryExeption;
 import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.dto.ChambreServiceDto;
 import fr.chatelain.reservation.service.ChambreServiceService;
@@ -37,9 +43,14 @@ public class ChambreServiceController {
     }
 
     @GetMapping("/chambreServices/{id}")
-    public ChambreServiceDto getChambreService(@PathVariable(name = "id") String id) {
+    public ResponseEntity<ChambreServiceDto> getChambreService(@PathVariable(name = "id") String id) {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(chambreServiceService.getById(id), ChambreServiceDto.class);
+        try {
+            return new ResponseEntity<>(modelMapper.map(chambreServiceService.getById(id), ChambreServiceDto.class), 
+            HttpStatus.FOUND);
+        } catch (RepositoryExeption e) {
+            return new ResponseEntity<>(new ChambreServiceDto(), HttpStatus.NO_CONTENT);
+        }
     }
 
     @PostMapping("/chambreServices")
@@ -58,6 +69,18 @@ public class ChambreServiceController {
 
     @DeleteMapping("/chambreServices/{id}")
     public void deleteChambreService(@PathVariable(name = "id") String id) {
-        chambreServiceService.deleteById(id);
+        try {
+            chambreServiceService.deleteById(id);
+        } catch (RepositoryExeption e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    @GetMapping("/chambreServices/test/")
+    public void getTestServices() {
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<ChambreServiceDto> result = restTemplate.exchange("http://localhost:8080/api/chambreServices/{id}", HttpMethod.GET, null, ChambreServiceDto.class, UUID.randomUUID().toString());
+        System.err.println("************************** "+result);
     }
 }
