@@ -13,7 +13,7 @@ public interface IGenericService<T> {
 
     Optional<ChambreService> getById(final String id) throws RepositoryExeption;
 
-    List<T> findAll();
+    List<T> findAll() throws RepositoryExeption;
 
     T save(final T entity) throws RepositoryExeption;
 
@@ -21,5 +21,5 @@ public interface IGenericService<T> {
 
     void delete(final T entity);
 
-    void deleteById(final String entityId) throws RepositoryExeption;
+    void deleteById(final String entityId) ;
 }

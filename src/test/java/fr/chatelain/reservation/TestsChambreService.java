@@ -1,9 +1,11 @@
 package fr.chatelain.reservation;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.UUID;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -30,6 +32,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 @TestMethodOrder(OrderAnnotation.class)
 class TestsChambreService {
 
+	private static final Logger LOG = LogManager.getLogger(TestsChambreService.class);
 
 	private static final String MY_UUID = UUID.randomUUID().toString();
 
@@ -86,8 +89,6 @@ class TestsChambreService {
 	@Test
 	@Order(3)
 	public void saveChambreServiceSuccess() throws URISyntaxException {
-		URI uri = new URI(postUrl);
-
 		ChambreServiceDto entityDto = new ChambreServiceDto();
 		entityDto.setId(MY_UUID);
 		entityDto.setLibelleService(MY_LIBELLE);
@@ -97,34 +98,28 @@ class TestsChambreService {
 
 		HttpEntity<ChambreServiceDto> request = new HttpEntity<>(entityDto, headers);
 
-		ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.POST, request, String.class);
+		ResponseEntity<String> result = restTemplate.exchange(postUrl, HttpMethod.POST, request, String.class);
 
-		Assertions.assertEquals(200, result.getStatusCodeValue());
+		Assertions.assertEquals(HttpStatus.CREATED.value(), result.getStatusCodeValue());
 	}
 
 	@Test
 	@Order(4)
 	public void getChambreServiceSuccess() throws URISyntaxException {
-		URI uri = new URI(getUrl);
-
-		ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.GET, null, String.class);
-
-		Assertions.assertEquals(200, result.getStatusCodeValue());
+		ResponseEntity<String> result = restTemplate.exchange(getUrl, HttpMethod.GET, null, String.class);
+		Assertions.assertEquals(HttpStatus.FOUND.value(), result.getStatusCodeValue());
 	}
 
 	@Test
 	@Order(5)
 	public void getChambreServiceByIdSuccess() throws URISyntaxException {
 		ResponseEntity<String> result = restTemplate.exchange(getUrlbyId, HttpMethod.GET, null, String.class, MY_UUID);
-
 		Assertions.assertEquals(HttpStatus.FOUND.value(), result.getStatusCodeValue());
 	}
 
 	@Test
 	@Order(6)
 	public void updateChambreServiceSuccess() throws URISyntaxException {
-		URI uri = new URI(putUrl);
-
 		ChambreServiceDto entityDto = new ChambreServiceDto();
 		entityDto.setId(MY_UUID);
 		entityDto.setLibelleService("LibelleChanged");
@@ -134,7 +129,7 @@ class TestsChambreService {
 
 		HttpEntity<ChambreServiceDto> request = new HttpEntity<>(entityDto, headers);
 
-		ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.PUT, request, String.class);
+		ResponseEntity<String> result = restTemplate.exchange(putUrl, HttpMethod.PUT, request, String.class);
 
 		Assertions.assertEquals(200, result.getStatusCodeValue());
 	}
@@ -144,14 +139,20 @@ class TestsChambreService {
 	public void deleteChambreServiceSuccess() throws URISyntaxException {
 		ResponseEntity<String> result = restTemplate.exchange(deleteUrl, HttpMethod.DELETE, null, String.class,
 				MY_UUID);
-
-		Assertions.assertEquals(200, result.getStatusCodeValue());
+		Assertions.assertEquals(HttpStatus.OK.value(), result.getStatusCodeValue());
 	}
 
 	@Test
 	@Order(8)
 	public void getChambreServiceByIdFailed() throws URISyntaxException {
 		ResponseEntity<String> result = restTemplate.exchange(getUrlbyId, HttpMethod.GET, null, String.class, UUID.randomUUID().toString());
+		Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatusCodeValue());
+	}
+
+	@Test
+	@Order(9)
+	public void getChambreServiceFailed() throws URISyntaxException {
+		ResponseEntity<String> result = restTemplate.exchange(getUrl, HttpMethod.GET, null, String.class);
 		Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatusCodeValue());
 	}
 }

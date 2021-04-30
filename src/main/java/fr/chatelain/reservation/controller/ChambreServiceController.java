@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import fr.chatelain.reservation.exceptions.RepositoryExeption;
 import fr.chatelain.reservation.model.ChambreService;
@@ -34,12 +33,17 @@ public class ChambreServiceController {
     private ChambreServiceService chambreServiceService;
 
     @GetMapping("/chambreServices")
-    public List<ChambreServiceDto> getAllServices() {
+    public ResponseEntity<List<ChambreServiceDto>> getAllServices() {
         List<ChambreServiceDto> listChambreServiceDto = new ArrayList<>(0);
         ModelMapper modelMapper = new ModelMapper();
-        chambreServiceService.findAll().stream()
-                .forEach(c -> listChambreServiceDto.add(modelMapper.map(c, ChambreServiceDto.class)));
-        return listChambreServiceDto;
+        try {
+            chambreServiceService.findAll().stream()
+                    .forEach(c -> listChambreServiceDto.add(modelMapper.map(c, ChambreServiceDto.class)));
+            return new ResponseEntity<List<ChambreServiceDto>>(listChambreServiceDto, HttpStatus.FOUND);
+        } catch (RepositoryExeption e) {
+            return new ResponseEntity<List<ChambreServiceDto>>(new ArrayList<>(), HttpStatus.NO_CONTENT);
+        }
+        
     }
 
     @GetMapping("/chambreServices/{id}")
@@ -54,10 +58,15 @@ public class ChambreServiceController {
     }
 
     @PostMapping("/chambreServices")
-    public ChambreServiceDto saveChambreService(@RequestBody ChambreServiceDto chambreService) {
+    public ResponseEntity<ChambreServiceDto> saveChambreService(@RequestBody ChambreServiceDto chambreService) {
         ModelMapper modelMapper = new ModelMapper();
-        chambreServiceService.save(modelMapper.map(chambreService, ChambreService.class));
-        return chambreService;
+        try {
+            ChambreService entity = modelMapper.map(chambreService, ChambreService.class);
+            chambreServiceService.save(entity);
+            return new ResponseEntity<>(chambreService, HttpStatus.CREATED);
+        } catch (RepositoryExeption e) {
+            return new ResponseEntity<>(new ChambreServiceDto(), HttpStatus.BAD_REQUEST);
+        }        
     }
 
     @PutMapping("/chambreServices")
@@ -69,18 +78,6 @@ public class ChambreServiceController {
 
     @DeleteMapping("/chambreServices/{id}")
     public void deleteChambreService(@PathVariable(name = "id") String id) {
-        try {
-            chambreServiceService.deleteById(id);
-        } catch (RepositoryExeption e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    @GetMapping("/chambreServices/test/")
-    public void getTestServices() {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<ChambreServiceDto> result = restTemplate.exchange("http://localhost:8080/api/chambreServices/{id}", HttpMethod.GET, null, ChambreServiceDto.class, UUID.randomUUID().toString());
-        System.err.println("************************** "+result);
+        chambreServiceService.deleteById(id);
     }
 }
