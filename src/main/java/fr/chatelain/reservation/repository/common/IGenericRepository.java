@@ -2,14 +2,18 @@ package fr.chatelain.reservation.repository.common;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
-public interface IGenericRepository<T extends Serializable> {
+import fr.chatelain.reservation.exceptions.RepositoryExeption;
+import fr.chatelain.reservation.model.AbstractEntities;
 
-    T getById(final String id);
+public interface IGenericRepository<T extends AbstractEntities> {
 
-    List<T> findAll();
+    Optional<T> getById(final String id) throws RepositoryExeption;
 
-    void save(final T entity);
+    List<T> findAll() throws RepositoryExeption;
+
+    T save(final T entity) throws RepositoryExeption;
 
     T update(final T entity);
 

@@ -1,10 +1,12 @@
 package fr.chatelain.reservation.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.chatelain.reservation.exceptions.RepositoryExeption;
 import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.FactoryReservation;
 import fr.chatelain.reservation.repository.common.GenericJpaRepository;
@@ -29,20 +31,18 @@ public class ChambreServiceService implements IGenericService<ChambreService> {
     }
 
     @Override
-    public ChambreService getById(String id) {
+    public Optional<ChambreService> getById(String id) throws RepositoryExeption {
         return genericJpaRepository.getById(id);
     }
 
     @Override
-    public List<ChambreService> findAll() {
+    public List<ChambreService> findAll() throws RepositoryExeption {
         return genericJpaRepository.findAll();
     }
 
     @Override
-    public ChambreService save(ChambreService entity) {
-        genericJpaRepository.save(entity);
-
-        return getById(entity.getId());
+    public ChambreService save(ChambreService entity) throws RepositoryExeption {
+        return genericJpaRepository.save(entity);
     }
 
     @Override
