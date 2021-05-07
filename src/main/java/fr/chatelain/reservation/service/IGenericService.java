@@ -17,9 +17,7 @@ public interface IGenericService<T> {
 
     T save(final T entity) throws RepositoryExeption;
 
-    T update(final T entity);
+    T update(final T entity) throws RepositoryExeption;
 
-    void delete(final T entity);
-
-    void deleteById(final String entityId) ;
+    void deleteById(final String entityId) throws RepositoryExeption;
 }

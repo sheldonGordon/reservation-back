@@ -1,11 +1,7 @@
 package fr.chatelain.reservation;
 
-import java.net.URISyntaxException;
 import java.util.UUID;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -31,8 +27,6 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
 class TestsChambreService {
-
-	private static final Logger LOG = LogManager.getLogger(TestsChambreService.class);
 
 	private static final String MY_UUID = UUID.randomUUID().toString();
 
@@ -70,7 +64,7 @@ class TestsChambreService {
 
 	@Test
 	@Order(1)
-	public void contructorChambreServiceSuccess(){
+	public void contructorChambreServiceSuccess() {
 		ChambreService entity = service.getInstance();
 
 		Assertions.assertNotNull(entity.getId());
@@ -82,13 +76,13 @@ class TestsChambreService {
 
 	@Test
 	@Order(2)
-	public void equalsAndHashCodeChambreServiceSuccess(){
+	public void equalsAndHashCodeChambreServiceSuccess() {
 		EqualsVerifier.simple().forClass(ChambreService.class).verify();
 	}
 
 	@Test
 	@Order(3)
-	public void saveChambreServiceSuccess() throws URISyntaxException {
+	public void saveChambreServiceSuccess() {
 		ChambreServiceDto entityDto = new ChambreServiceDto();
 		entityDto.setId(MY_UUID);
 		entityDto.setLibelleService(MY_LIBELLE);
@@ -105,21 +99,21 @@ class TestsChambreService {
 
 	@Test
 	@Order(4)
-	public void getChambreServiceSuccess() throws URISyntaxException {
+	public void getChambreServiceSuccess() {
 		ResponseEntity<String> result = restTemplate.exchange(getUrl, HttpMethod.GET, null, String.class);
 		Assertions.assertEquals(HttpStatus.FOUND.value(), result.getStatusCodeValue());
 	}
 
 	@Test
 	@Order(5)
-	public void getChambreServiceByIdSuccess() throws URISyntaxException {
+	public void getChambreServiceByIdSuccess() {
 		ResponseEntity<String> result = restTemplate.exchange(getUrlbyId, HttpMethod.GET, null, String.class, MY_UUID);
 		Assertions.assertEquals(HttpStatus.FOUND.value(), result.getStatusCodeValue());
 	}
 
 	@Test
 	@Order(6)
-	public void updateChambreServiceSuccess() throws URISyntaxException {
+	public void updateChambreServiceSuccess() {
 		ChambreServiceDto entityDto = new ChambreServiceDto();
 		entityDto.setId(MY_UUID);
 		entityDto.setLibelleService("LibelleChanged");
@@ -131,12 +125,12 @@ class TestsChambreService {
 
 		ResponseEntity<String> result = restTemplate.exchange(putUrl, HttpMethod.PUT, request, String.class);
 
-		Assertions.assertEquals(200, result.getStatusCodeValue());
+		Assertions.assertEquals(HttpStatus.OK.value(), result.getStatusCodeValue());
 	}
 
 	@Test
 	@Order(7)
-	public void deleteChambreServiceSuccess() throws URISyntaxException {
+	public void deleteChambreServiceSuccess() {
 		ResponseEntity<String> result = restTemplate.exchange(deleteUrl, HttpMethod.DELETE, null, String.class,
 				MY_UUID);
 		Assertions.assertEquals(HttpStatus.OK.value(), result.getStatusCodeValue());
@@ -144,15 +138,54 @@ class TestsChambreService {
 
 	@Test
 	@Order(8)
-	public void getChambreServiceByIdFailed() throws URISyntaxException {
-		ResponseEntity<String> result = restTemplate.exchange(getUrlbyId, HttpMethod.GET, null, String.class, UUID.randomUUID().toString());
+	public void saveChambreServiceFailed() {
+		ChambreServiceDto entityDto = new ChambreServiceDto();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("X-COM-PERSIST", "true");
+
+		HttpEntity<ChambreServiceDto> request = new HttpEntity<>(entityDto, headers);
+
+		ResponseEntity<String> result = restTemplate.exchange(postUrl, HttpMethod.POST, request, String.class);
+
 		Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatusCodeValue());
 	}
 
 	@Test
 	@Order(9)
-	public void getChambreServiceFailed() throws URISyntaxException {
+	public void getChambreServiceByIdFailed() {
+		ResponseEntity<String> result = restTemplate.exchange(getUrlbyId, HttpMethod.GET, null, String.class,
+				UUID.randomUUID().toString());
+		Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatusCodeValue());
+	}
+
+	@Test
+	@Order(10)
+	public void getChambreServiceFailed() {
 		ResponseEntity<String> result = restTemplate.exchange(getUrl, HttpMethod.GET, null, String.class);
+		Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatusCodeValue());
+	}
+
+	@Test
+	@Order(11)
+	public void updateChambreServiceFailed() {
+		ChambreServiceDto entityDto = new ChambreServiceDto();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("X-COM-PERSIST", "true");
+
+		HttpEntity<ChambreServiceDto> request = new HttpEntity<>(entityDto, headers);
+
+		ResponseEntity<String> result = restTemplate.exchange(putUrl, HttpMethod.PUT, request, String.class);
+
+		Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatusCodeValue());
+	}
+
+	@Test
+	@Order(12)
+	public void deleteChambreServiceFailed() {
+		ResponseEntity<String> result = restTemplate.exchange(deleteUrl, HttpMethod.DELETE, null, String.class,
+				UUID.randomUUID().toString());
 		Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatusCodeValue());
 	}
 }

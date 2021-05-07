@@ -1,6 +1,5 @@
 package fr.chatelain.reservation.repository.common;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,9 +14,7 @@ public interface IGenericRepository<T extends AbstractEntities> {
 
     T save(final T entity) throws RepositoryExeption;
 
-    T update(final T entity);
+    T update(final T entity) throws RepositoryExeption;
 
-    void delete(final T entity);
-
-    void deleteById(final String entityId);
+    void deleteById(final String entityId) throws RepositoryExeption;
 }

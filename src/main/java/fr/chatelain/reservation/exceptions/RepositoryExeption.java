@@ -1,7 +1,9 @@
 package fr.chatelain.reservation.exceptions;
 
-public class RepositoryExeption extends Exception{
-    
+public class RepositoryExeption extends Exception {
+
+    private static final long serialVersionUID = -745705969974428576L;
+
     public RepositoryExeption() {
         super();
     }
