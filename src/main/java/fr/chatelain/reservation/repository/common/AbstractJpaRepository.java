@@ -47,6 +47,7 @@ public abstract class AbstractJpaRepository<T extends AbstractEntities> implemen
 
     @Override
     public T save(T entity) throws RepositoryExeption {
+        System.err.println("--------------- "+entity.getId());
         if (entity.getId() != null && !entity.getId().isEmpty()) {
             return this.getRepository(clazz).save(entity);
         } else {

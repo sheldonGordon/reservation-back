@@ -101,14 +101,14 @@ class TestsChambreService {
 	@Order(4)
 	public void getChambreServiceSuccess() {
 		ResponseEntity<String> result = restTemplate.exchange(getUrl, HttpMethod.GET, null, String.class);
-		Assertions.assertEquals(HttpStatus.FOUND.value(), result.getStatusCodeValue());
+		Assertions.assertEquals(HttpStatus.OK.value(), result.getStatusCodeValue());
 	}
 
 	@Test
 	@Order(5)
 	public void getChambreServiceByIdSuccess() {
 		ResponseEntity<String> result = restTemplate.exchange(getUrlbyId, HttpMethod.GET, null, String.class, MY_UUID);
-		Assertions.assertEquals(HttpStatus.FOUND.value(), result.getStatusCodeValue());
+		Assertions.assertEquals(HttpStatus.OK.value(), result.getStatusCodeValue());
 	}
 
 	@Test

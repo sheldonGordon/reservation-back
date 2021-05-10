@@ -38,7 +38,7 @@ public class ChambreServiceController {
         try {
             chambreServiceService.findAll().stream()
                     .forEach(c -> listChambreServiceDto.add(modelMapper.map(c, ChambreServiceDto.class)));
-            return new ResponseEntity<>(listChambreServiceDto, HttpStatus.FOUND);
+            return new ResponseEntity<>(listChambreServiceDto, HttpStatus.OK);
         } catch (RepositoryExeption e) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
         }
@@ -50,7 +50,7 @@ public class ChambreServiceController {
         ModelMapper modelMapper = new ModelMapper();
         try {
             return new ResponseEntity<>(modelMapper.map(chambreServiceService.getById(id), ChambreServiceDto.class),
-                    HttpStatus.FOUND);
+                    HttpStatus.OK);
         } catch (RepositoryExeption e) {
             return new ResponseEntity<>(new ChambreServiceDto(), HttpStatus.NO_CONTENT);
         }

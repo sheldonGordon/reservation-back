@@ -21,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import fr.chatelain.reservation.exceptions.RepositoryExeption;
-import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.Photos;
 import fr.chatelain.reservation.service.PhotosService;
 import nl.jqno.equalsverifier.EqualsVerifier;
