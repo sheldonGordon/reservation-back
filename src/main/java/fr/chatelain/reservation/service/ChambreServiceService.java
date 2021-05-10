@@ -11,6 +11,7 @@ import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.FactoryReservation;
 import fr.chatelain.reservation.repository.common.GenericJpaRepository;
 
+
 @Service
 public class ChambreServiceService implements IGenericService<ChambreService> {
 
