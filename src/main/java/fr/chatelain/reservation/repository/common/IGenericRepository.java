@@ -5,16 +5,18 @@ import java.util.Optional;
 
 import fr.chatelain.reservation.exceptions.RepositoryExeption;
 import fr.chatelain.reservation.model.AbstractEntities;
+import org.springframework.data.repository.NoRepositoryBean;
 
+@NoRepositoryBean
 public interface IGenericRepository<T extends AbstractEntities> {
 
-    Optional<T> getById(final String id) throws RepositoryExeption;
+    Optional<T> getById(final String id, Class<T> type) throws RepositoryExeption;
 
-    List<T> findAll() throws RepositoryExeption;
+    List<T> findAll(Class<T> type) throws RepositoryExeption;
 
-    T save(final T entity) throws RepositoryExeption;
+    T save(final T entity, Class<T> type) throws RepositoryExeption;
 
-    T update(final T entity) throws RepositoryExeption;
+    T update(final T entity, Class<T> type) throws RepositoryExeption;
 
-    void deleteById(final String entityId) throws RepositoryExeption;
+    void deleteById(final String id, Class<T> type) throws RepositoryExeption;
 }

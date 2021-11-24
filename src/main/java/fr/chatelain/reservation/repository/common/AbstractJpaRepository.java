@@ -14,67 +14,59 @@ import fr.chatelain.reservation.model.AbstractEntities;
 
 public abstract class AbstractJpaRepository<T extends AbstractEntities> implements IGenericRepository<T> {
 
-    private Class<T> clazz;
-
     @Autowired
     private EntityManager em;
 
-    public void setClazz(Class<T> clazzToSet) {
-        this.clazz = clazzToSet;
-    }
-
     @Override
-    public Optional<T> getById(String id) throws RepositoryExeption {
-        Optional<T> result = this.getRepository(clazz).findById(id);
+    public Optional<T> getById(String id, Class<T> type) throws RepositoryExeption {
+        Optional<T> result = this.getRepository(type).findById(id);
         if (result.isPresent()) {
             return result;
         } else {
             throw new RepositoryExeption(
-                    String.format("Aucun objet trouvé de type %s pour l'id %s", this.clazz.getName(), id));
+                    String.format("Aucun objet trouvé de type %s pour l'id %s", type.getName(), id));
         }
     }
 
     @Override
-    public List<T> findAll() throws RepositoryExeption {
-        List<T> result = this.getRepository(clazz).findAll();
-
+    public List<T> findAll(Class<T> type) throws RepositoryExeption {
+        List<T> result = this.getRepository(type).findAll();
         if (!result.isEmpty()) {
-            return this.getRepository(clazz).findAll();
+            return this.getRepository(type).findAll();
         } else {
-            throw new RepositoryExeption(String.format("Aucun objet trouvé de type %s", this.clazz.getName()));
+            throw new RepositoryExeption(String.format("Aucun objet trouvé de type %s", type.getName()));
         }
     }
 
     @Override
-    public T save(T entity) throws RepositoryExeption {
-        System.err.println("--------------- "+entity.getId());
+    public T save(T entity, Class<T> type) throws RepositoryExeption {
         if (entity.getId() != null && !entity.getId().isEmpty()) {
-            return this.getRepository(clazz).save(entity);
+            return this.getRepository(type).save(entity);
         } else {
-            throw new RepositoryExeption(String.format("Objet de type %s non enregistré", this.clazz.getName()));
+            throw new RepositoryExeption(String.format("Objet de type %s non enregistré", type.getName()));
         }
     }
 
     @Override
-    public T update(T entity) throws RepositoryExeption {
+    public T update(T entity, Class<T> type) throws RepositoryExeption {
         if (entity.getId() != null && !entity.getId().isEmpty()) {
-            return this.getRepository(clazz).saveAndFlush(entity);
+            return this.getRepository(type).saveAndFlush(entity);
         } else {
-            throw new RepositoryExeption(String.format("Objet de type %s non mis à jour", this.clazz.getName()));
+            throw new RepositoryExeption(String.format("Objet de type %s non mis à jour", type.getName()));
         }
     }
 
     @Override
-    public void deleteById(String entityId) throws RepositoryExeption {
+    public void deleteById(String entityId, Class<T> type) throws RepositoryExeption {
         try {
-            this.getRepository(clazz).deleteById(entityId);
+            this.getRepository(type).deleteById(entityId);
         } catch (Exception e) {
-            throw new RepositoryExeption(String.format("Objet de type %s non supprimé", this.clazz.getName()));
+            throw new RepositoryExeption(String.format("Objet de type %s non supprimé", type.getName()));
         }
     }
 
     // Permet l'aiguillage pour pointer sur la bonne référence
-    private <T extends Serializable> SimpleJpaRepository<T, String> getRepository(Class<T> classe) {
-        return new SimpleJpaRepository<>(classe, em);
+    private <T extends Serializable> SimpleJpaRepository<T, String> getRepository(Class<T> type) {
+        return new SimpleJpaRepository<T, String>(type, em);
     }
 }

@@ -20,7 +20,6 @@ public class PhotosService implements IGenericService<Photos> {
     @Autowired
     public void setGenericJpaRepository(GenericJpaRepository<Photos> repositoryToSet) {
         genericJpaRepository = repositoryToSet;
-        genericJpaRepository.setClazz(Photos.class);
     }
 
     public Photos getInstance() {
@@ -33,7 +32,7 @@ public class PhotosService implements IGenericService<Photos> {
 
     @Override
     public void deleteById(String entityId) throws RepositoryExeption {
-        genericJpaRepository.deleteById(entityId);
+        genericJpaRepository.deleteById(entityId, Photos.class);
     }
 
     @Override
@@ -53,7 +52,7 @@ public class PhotosService implements IGenericService<Photos> {
 
     @Override
     public Photos save(Photos entity) throws RepositoryExeption {
-        return genericJpaRepository.save(entity);
+        return genericJpaRepository.save(entity, Photos.class);
     }
     
 }

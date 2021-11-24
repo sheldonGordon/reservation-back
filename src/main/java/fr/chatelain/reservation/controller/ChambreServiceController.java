@@ -36,6 +36,7 @@ public class ChambreServiceController {
         List<ChambreServiceDto> listChambreServiceDto = new ArrayList<>(0);
         ModelMapper modelMapper = new ModelMapper();
         try {
+            chambreServiceService.findAll().stream().forEach(c -> System.out.println("----------- "+c.getLibelle()));
             chambreServiceService.findAll().stream()
                     .forEach(c -> listChambreServiceDto.add(modelMapper.map(c, ChambreServiceDto.class)));
             return new ResponseEntity<>(listChambreServiceDto, HttpStatus.OK);

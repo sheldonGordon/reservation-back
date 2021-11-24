@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.chatelain.reservation.exceptions.RepositoryExeption;
 import fr.chatelain.reservation.model.ChambreService;
 
-@Transactional
 public interface IGenericService<T> {
 
     Optional<ChambreService> getById(final String id) throws RepositoryExeption;
@@ -19,5 +18,5 @@ public interface IGenericService<T> {
 
     T update(final T entity) throws RepositoryExeption;
 
-    void deleteById(final String entityId) throws RepositoryExeption;
+    void deleteById(final String id) throws RepositoryExeption;
 }

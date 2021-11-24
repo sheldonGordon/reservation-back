@@ -19,8 +19,7 @@ public class ChambreServiceService implements IGenericService<ChambreService> {
 
     @Autowired
     public void setGenericJpaRepository(GenericJpaRepository<ChambreService> repositoryToSet) {
-        genericJpaRepository = repositoryToSet;
-        genericJpaRepository.setClazz(ChambreService.class);
+        this.genericJpaRepository = repositoryToSet;
     }
 
     public ChambreService getInstance() {
@@ -33,26 +32,26 @@ public class ChambreServiceService implements IGenericService<ChambreService> {
 
     @Override
     public Optional<ChambreService> getById(String id) throws RepositoryExeption {
-        return genericJpaRepository.getById(id);
+        return genericJpaRepository.getById(id, ChambreService.class);
     }
 
     @Override
     public List<ChambreService> findAll() throws RepositoryExeption {
-        return genericJpaRepository.findAll();
+        return genericJpaRepository.findAll(ChambreService.class);
     }
 
     @Override
     public ChambreService save(ChambreService entity) throws RepositoryExeption {
-        return genericJpaRepository.save(entity);
+        return genericJpaRepository.save(entity, ChambreService.class);
     }
 
     @Override
     public ChambreService update(ChambreService entity) throws RepositoryExeption {
-        return genericJpaRepository.update(entity);
+        return genericJpaRepository.update(entity, ChambreService.class);
     }
 
     @Override
     public void deleteById(String entityId) throws RepositoryExeption {
-        genericJpaRepository.deleteById(entityId);
+        genericJpaRepository.deleteById(entityId, ChambreService.class);
     }
 }
