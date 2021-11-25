@@ -11,8 +11,10 @@ import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.FactoryReservation;
 import fr.chatelain.reservation.model.Photos;
 import fr.chatelain.reservation.repository.common.GenericJpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class PhotosService implements IGenericService<Photos> {
 
     private GenericJpaRepository<Photos> genericJpaRepository;

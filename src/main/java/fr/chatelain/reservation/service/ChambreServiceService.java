@@ -10,9 +10,11 @@ import fr.chatelain.reservation.exceptions.RepositoryExeption;
 import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.FactoryReservation;
 import fr.chatelain.reservation.repository.common.GenericJpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Transactional
 public class ChambreServiceService implements IGenericService<ChambreService> {
 
     private GenericJpaRepository<ChambreService> genericJpaRepository;
