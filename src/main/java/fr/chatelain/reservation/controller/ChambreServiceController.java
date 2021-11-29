@@ -44,7 +44,7 @@ public class ChambreServiceController {
 
     }
 
-    @GetMapping("/chambreServices/{id}")
+    @GetMapping("/chambreService/{id}")
     public ResponseEntity<ChambreServiceDto> getChambreService(@PathVariable(name = "id") String id) {
         ModelMapper modelMapper = new ModelMapper();
         try {
@@ -55,7 +55,7 @@ public class ChambreServiceController {
         }
     }
 
-    @PostMapping("/chambreServices")
+    @PostMapping("/chambreService")
     public ResponseEntity<ChambreServiceDto> saveChambreService(@RequestBody ChambreServiceDto chambreService) {
         ModelMapper modelMapper = new ModelMapper();
         try {
@@ -67,7 +67,7 @@ public class ChambreServiceController {
         }
     }
 
-    @PutMapping("/chambreServices")
+    @PutMapping("/chambreService")
     public ResponseEntity<ChambreServiceDto> updateChambreService(@RequestBody ChambreServiceDto chambreService) {
         ModelMapper modelMapper = new ModelMapper();
         try {
@@ -78,7 +78,7 @@ public class ChambreServiceController {
         }
     }
 
-    @DeleteMapping("/chambreServices/{id}")
+    @DeleteMapping("/chambreService/{id}")
     public ResponseEntity<String> deleteChambreService(@PathVariable(name = "id") String id) {
         try {
             chambreServiceService.deleteById(id);
