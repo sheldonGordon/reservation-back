@@ -1,4 +1,4 @@
-package fr.chatelain.reservation.repository.common;
+package fr.chatelain.reservation.repository;
 
 import org.springframework.stereotype.Repository;
 

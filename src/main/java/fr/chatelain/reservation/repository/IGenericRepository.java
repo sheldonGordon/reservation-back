@@ -1,4 +1,4 @@
-package fr.chatelain.reservation.repository.common;
+package fr.chatelain.reservation.repository;
 
 import java.util.List;
 import java.util.Optional;

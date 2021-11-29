@@ -10,7 +10,7 @@ import fr.chatelain.reservation.model.ChambreService;
 
 public interface IGenericService<T> {
 
-    Optional<ChambreService> getById(final String id) throws RepositoryExeption;
+    Optional<T> getById(final String id) throws RepositoryExeption;
 
     List<T> findAll() throws RepositoryExeption;
 

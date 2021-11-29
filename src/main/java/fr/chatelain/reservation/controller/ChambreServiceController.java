@@ -30,13 +30,12 @@ public class ChambreServiceController {
     @Autowired
     private ChambreServiceService chambreServiceService;
 
-    
     @GetMapping("/chambreServices")
     public ResponseEntity<List<ChambreServiceDto>> getAllServices() {
         List<ChambreServiceDto> listChambreServiceDto = new ArrayList<>(0);
         ModelMapper modelMapper = new ModelMapper();
         try {
-            chambreServiceService.findAll().stream()
+            chambreServiceService.findAll()
                     .forEach(c -> listChambreServiceDto.add(modelMapper.map(c, ChambreServiceDto.class)));
             return new ResponseEntity<>(listChambreServiceDto, HttpStatus.OK);
         } catch (RepositoryExeption e) {

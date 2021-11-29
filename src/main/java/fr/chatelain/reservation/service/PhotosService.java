@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.chatelain.reservation.exceptions.RepositoryExeption;
-import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.FactoryReservation;
 import fr.chatelain.reservation.model.Photos;
-import fr.chatelain.reservation.repository.common.GenericJpaRepository;
+import fr.chatelain.reservation.repository.GenericJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -39,17 +38,17 @@ public class PhotosService implements IGenericService<Photos> {
 
     @Override
     public Photos update(Photos entity) throws RepositoryExeption {
-        return null;
+        return genericJpaRepository.update(entity, Photos.class);
     }
 
     @Override
-    public Optional<ChambreService> getById(String id) throws RepositoryExeption {
-        return null;
+    public Optional<Photos> getById(String id) throws RepositoryExeption {
+        return genericJpaRepository.getById(id, Photos.class);
     }
 
     @Override
     public List<Photos> findAll() throws RepositoryExeption {
-        return null;
+        return genericJpaRepository.findAll(Photos.class);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package fr.chatelain.reservation.repository.common;
+package fr.chatelain.reservation.repository;
 
 import java.io.Serializable;
 import java.util.List;
