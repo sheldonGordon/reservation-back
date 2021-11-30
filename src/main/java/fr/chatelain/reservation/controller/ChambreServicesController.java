@@ -20,15 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.chatelain.reservation.exceptions.RepositoryExeption;
 import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.dto.ChambreServiceDto;
-import fr.chatelain.reservation.service.ChambreServiceService;
+import fr.chatelain.reservation.service.ChambreServicesService;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api")
-public class ChambreServiceController {
+public class ChambreServicesController {
 
     @Autowired
-    private ChambreServiceService chambreServiceService;
+    private ChambreServicesService chambreServiceService;
 
     @GetMapping("/chambreServices")
     public ResponseEntity<List<ChambreServiceDto>> getAllServices() {

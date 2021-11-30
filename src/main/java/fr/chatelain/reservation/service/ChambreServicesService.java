@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class ChambreServiceService implements IGenericService<ChambreService> {
+public class ChambreServicesService implements IGenericService<ChambreService> {
 
     private GenericJpaRepository<ChambreService> genericJpaRepository;
 

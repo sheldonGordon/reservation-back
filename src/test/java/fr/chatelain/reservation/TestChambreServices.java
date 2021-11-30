@@ -21,12 +21,12 @@ import org.springframework.web.client.RestTemplate;
 
 import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.dto.ChambreServiceDto;
-import fr.chatelain.reservation.service.ChambreServiceService;
+import fr.chatelain.reservation.service.ChambreServicesService;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
-class TestsChambreService {
+class TestChambreServices {
 
 	private static final String MY_UUID = UUID.randomUUID().toString();
 
@@ -58,7 +58,7 @@ class TestsChambreService {
 	}
 
 	@Autowired
-	private ChambreServiceService service;
+	private ChambreServicesService service;
 
 	private RestTemplate restTemplate = new RestTemplate();
 

@@ -27,7 +27,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
-class TestPhotosService {
+class TestPhotos {
 
 	private static final String MY_UUID = UUID.randomUUID().toString();
 
