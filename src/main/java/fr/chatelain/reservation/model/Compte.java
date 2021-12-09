@@ -26,6 +26,7 @@ public class Compte extends AbstractEntities {
     @OneToOne
     private Personne personne;
 
+
     @OneToOne
     private Password password;
 
