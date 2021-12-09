@@ -35,26 +35,26 @@ public class ChambreService implements IGenericService<Chambre>{
 
     @Override
     public Optional<Chambre> getById(String id) throws RepositoryExeption {
-        return Optional.empty();
+        return genericJpaRepository.getById(id, Chambre.class);
     }
 
     @Override
     public List<Chambre> findAll() throws RepositoryExeption {
-        return null;
+        return genericJpaRepository.findAll(Chambre.class);
     }
 
     @Override
     public Chambre save(Chambre entity) throws RepositoryExeption {
-        return null;
+        return genericJpaRepository.save(entity, Chambre.class);
     }
 
     @Override
     public Chambre update(Chambre entity) throws RepositoryExeption {
-        return null;
+        return genericJpaRepository.update(entity, Chambre.class);
     }
 
     @Override
     public void deleteById(String id) throws RepositoryExeption {
-
+        genericJpaRepository.deleteById(id, Chambre.class);
     }
 }

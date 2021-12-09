@@ -44,7 +44,7 @@ public class ChambreServicesController {
 
     }
 
-    @GetMapping("/chambreService/{id}")
+    @GetMapping("/chambreServices/{id}")
     public ResponseEntity<ChambreServiceDto> getChambreService(@PathVariable(name = "id") String id) {
         ModelMapper modelMapper = new ModelMapper();
         try {

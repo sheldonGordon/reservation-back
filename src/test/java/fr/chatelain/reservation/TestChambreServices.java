@@ -51,7 +51,7 @@ class TestChambreServices {
 	public void initUrl() {
 		this.baseUrl = "http://localhost:" + RANDOM_SERVER_PORT + "/api";
 		this.getUrl = baseUrl + "/chambreServices";
-		this.getUrlbyId = baseUrl + "/chambreService/{id}";
+		this.getUrlbyId = getUrl + "/{id}";
 		this.postUrl = baseUrl + "/chambreService";
 		this.putUrl = baseUrl + "/chambreService";
 		this.deleteUrl = baseUrl + "/chambreService/{id}";

@@ -7,6 +7,8 @@ import java.util.List;
 
 @Data
 public class ChambreDto {
+    private String id;
+
     private String nom;
 
     private int nombrePersonne;

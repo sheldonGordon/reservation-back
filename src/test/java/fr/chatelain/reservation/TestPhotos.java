@@ -5,7 +5,6 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-import fr.chatelain.reservation.model.dto.ChambreServiceDto;
 import fr.chatelain.reservation.model.dto.PhotosDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -69,7 +68,7 @@ class TestPhotos {
 		Assertions.assertNotNull(entity.getId());
 
 		Random random = ThreadLocalRandom.current();
-		byte[] r = new byte[256]; 
+		byte[] r = new byte[256];
 		random.nextBytes(r);
 		String dataPhotos = Base64.getEncoder().encodeToString(r);
 
@@ -193,7 +192,7 @@ class TestPhotos {
 
 	@Test
 	@Order(12)
-	public void deleteChambreServiceFailed() {
+	public void deletePhotosFailed() {
 		ResponseEntity<String> result = restTemplate.exchange(deleteUrl, HttpMethod.DELETE, null, String.class,
 				UUID.randomUUID().toString());
 		Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), result.getStatusCodeValue());
