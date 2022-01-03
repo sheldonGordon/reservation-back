@@ -36,4 +36,12 @@ public class FactoryReservation {
     public static DateDebutFin getInstanceDateDebutFin(LocalDate dateDebut, LocalDate dateFin) {
         return new DateDebutFin(dateDebut, dateFin);
     }
+
+    public static Option getInstanceOption(){
+        return new Option();
+    }
+
+    public static Option getInstanceOption(String libelle, double prix){
+        return new Option(libelle,prix);
+    }
 }

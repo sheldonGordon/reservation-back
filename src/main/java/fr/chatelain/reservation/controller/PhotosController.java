@@ -23,7 +23,7 @@ public class PhotosController {
     private PhotosService photosService;
 
     @GetMapping("/photos")
-    public ResponseEntity<List<PhotosDto>> getAllServices() {
+    public ResponseEntity<List<PhotosDto>> getAllPhotos() {
         List<PhotosDto> listPhotosDto = new ArrayList<>(0);
         ModelMapper modelMapper = new ModelMapper();
         try {
@@ -36,7 +36,7 @@ public class PhotosController {
     }
 
     @GetMapping("/photos/{id}")
-    public ResponseEntity<PhotosDto> getChambreService(@PathVariable(name = "id") String id) {
+    public ResponseEntity<PhotosDto> getPhotos(@PathVariable(name = "id") String id) {
         ModelMapper modelMapper = new ModelMapper();
         try {
             return new ResponseEntity<>(modelMapper.map(photosService.getById(id), PhotosDto.class),
@@ -47,7 +47,7 @@ public class PhotosController {
     }
 
     @PostMapping("/photos")
-    public ResponseEntity<PhotosDto> saveChambreService(@RequestBody PhotosDto photos) {
+    public ResponseEntity<PhotosDto> savePhotos(@RequestBody PhotosDto photos) {
         ModelMapper modelMapper = new ModelMapper();
         try {
             Photos entity = modelMapper.map(photos, Photos.class);
@@ -59,7 +59,7 @@ public class PhotosController {
     }
 
     @PutMapping("/photos")
-    public ResponseEntity<PhotosDto> updateChambreService(@RequestBody PhotosDto photos) {
+    public ResponseEntity<PhotosDto> updatePhotos(@RequestBody PhotosDto photos) {
         ModelMapper modelMapper = new ModelMapper();
         try {
             photosService.update(modelMapper.map(photos, Photos.class));
@@ -70,7 +70,7 @@ public class PhotosController {
     }
 
     @DeleteMapping("/photos/{id}")
-    public ResponseEntity<String> deleteChambreService(@PathVariable(name = "id") String id) {
+    public ResponseEntity<String> deletePhotos(@PathVariable(name = "id") String id) {
         try {
             photosService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
