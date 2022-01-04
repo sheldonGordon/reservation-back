@@ -33,7 +33,7 @@ public class OptionController {
         }
     }
 
-    @GetMapping("/option/{id}")
+    @GetMapping("/options/{id}")
     public ResponseEntity<OptionDto> getOption(@PathVariable(name = "id") String id){
         ModelMapper modelMapper = new ModelMapper();
         try {
