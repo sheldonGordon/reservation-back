@@ -44,4 +44,9 @@ public class FactoryReservation {
     public static Option getInstanceOption(String libelle, double prix){
         return new Option(libelle,prix);
     }
+
+    public static CodePromo getInstanceCodePromo() { return new CodePromo(); }
+
+    public static CodePromo getInstanceCodePromo(String code, double pourcentage, DateDebutFin validite) { return new CodePromo(code, pourcentage, validite); }
+
 }
