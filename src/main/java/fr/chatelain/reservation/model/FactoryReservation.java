@@ -49,4 +49,9 @@ public class FactoryReservation {
 
     public static CodePromo getInstanceCodePromo(String code, double pourcentage, DateDebutFin validite) { return new CodePromo(code, pourcentage, validite); }
 
+    public static Personne getInstancePersonne() { return new Personne(); }
+
+    public static Personne getInstancePersonne(String nom, String prenom) {
+        return new Personne(nom, prenom);
+    }
 }

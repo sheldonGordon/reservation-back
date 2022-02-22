@@ -66,7 +66,7 @@ public class CodePromoController {
         }
     }
 
-    @DeleteMapping("/codePromo/{id}")
+    @DeleteMapping("/codePromos/{id}")
     public ResponseEntity<String> deleteOption(@PathVariable(name = "id") String id) {
         try {
             codePromoService.deleteById(id);

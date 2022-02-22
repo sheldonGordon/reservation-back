@@ -1,28 +1,19 @@
 package fr.chatelain.reservation;
 
-import java.util.UUID;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import fr.chatelain.reservation.model.ChambreService;
+import fr.chatelain.reservation.model.dto.ChambreServiceDto;
+import fr.chatelain.reservation.service.ChambreServicesService;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import fr.chatelain.reservation.model.ChambreService;
-import fr.chatelain.reservation.model.dto.ChambreServiceDto;
-import fr.chatelain.reservation.service.ChambreServicesService;
-import nl.jqno.equalsverifier.EqualsVerifier;
+import java.util.UUID;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
@@ -54,7 +45,7 @@ class TestChambreServices {
 		this.getUrlbyId = getUrl + "/{id}";
 		this.postUrl = baseUrl + "/chambreService";
 		this.putUrl = baseUrl + "/chambreService";
-		this.deleteUrl = baseUrl + "/chambreService/{id}";
+		this.deleteUrl = getUrl + "/{id}";
 	}
 
 	@Autowired

@@ -1,9 +1,7 @@
 package fr.chatelain.reservation;
 
 import fr.chatelain.reservation.model.Option;
-import fr.chatelain.reservation.model.Photos;
 import fr.chatelain.reservation.model.dto.OptionDto;
-import fr.chatelain.reservation.model.dto.PhotosDto;
 import fr.chatelain.reservation.service.OptionService;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.*;
@@ -45,7 +43,7 @@ public class TestOption {
         this.getUrlbyId = getUrl + "/{id}";
         this.postUrl = baseUrl + "/option";
         this.putUrl = baseUrl + "/option";
-        this.deleteUrl = baseUrl + "/option/{id}";
+        this.deleteUrl = getUrl + "/{id}";
     }
 
     @Autowired

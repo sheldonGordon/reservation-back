@@ -66,7 +66,7 @@ public class OptionController {
         }
     }
 
-    @DeleteMapping("/option/{id}")
+    @DeleteMapping("/options/{id}")
     public ResponseEntity<String> deleteOption(@PathVariable(name = "id") String id) {
         try {
             optionService.deleteById(id);

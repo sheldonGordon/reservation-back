@@ -78,7 +78,7 @@ public class ChambreServicesController {
         }
     }
 
-    @DeleteMapping("/chambreService/{id}")
+    @DeleteMapping("/chambreServices/{id}")
     public ResponseEntity<String> deleteChambreService(@PathVariable(name = "id") String id) {
         try {
             chambreServiceService.deleteById(id);

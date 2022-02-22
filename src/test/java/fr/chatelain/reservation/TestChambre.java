@@ -4,7 +4,6 @@ import fr.chatelain.reservation.model.Chambre;
 import fr.chatelain.reservation.model.DateDebutFin;
 import fr.chatelain.reservation.model.Photos;
 import fr.chatelain.reservation.model.dto.ChambreDto;
-import fr.chatelain.reservation.model.dto.PhotosDto;
 import fr.chatelain.reservation.service.ChambreService;
 import fr.chatelain.reservation.service.ChambreServicesService;
 import fr.chatelain.reservation.service.DateDebutFinService;
@@ -50,7 +49,7 @@ public class TestChambre {
         this.getUrlbyId = getUrl + "/{id}";
         this.postUrl = baseUrl + "/chambre";
         this.putUrl = baseUrl + "/chambre";
-        this.deleteUrl = baseUrl + "/chambre/{id}";
+        this.deleteUrl = getUrl + "/{id}";
     }
 
     @Autowired

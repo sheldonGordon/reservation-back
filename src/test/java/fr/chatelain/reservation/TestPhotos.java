@@ -1,16 +1,10 @@
 package fr.chatelain.reservation;
 
-import java.util.Base64;
-import java.util.Random;
-import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
-
+import fr.chatelain.reservation.model.Photos;
 import fr.chatelain.reservation.model.dto.PhotosDto;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import fr.chatelain.reservation.service.PhotosService;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,10 +13,10 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import fr.chatelain.reservation.exceptions.RepositoryExeption;
-import fr.chatelain.reservation.model.Photos;
-import fr.chatelain.reservation.service.PhotosService;
-import nl.jqno.equalsverifier.EqualsVerifier;
+import java.util.Base64;
+import java.util.Random;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
