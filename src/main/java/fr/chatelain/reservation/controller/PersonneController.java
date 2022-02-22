@@ -22,7 +22,7 @@ public class PersonneController {
     private PersonneService personneService;
 
     @GetMapping("/personnes")
-    public ResponseEntity<List<PersonneDto>> getAllCodePromo(){
+    public ResponseEntity<List<PersonneDto>> getAllPersonnes(){
         List<PersonneDto> listCodePromoDto = new ArrayList<>(0);
         ModelMapper modelMapper = new ModelMapper();
         try {
@@ -34,7 +34,7 @@ public class PersonneController {
     }
 
     @GetMapping("/personnes/{id}")
-    public ResponseEntity<PersonneDto> getCodePromo(@PathVariable(name = "id") String id){
+    public ResponseEntity<PersonneDto> getPersonne(@PathVariable(name = "id") String id){
         ModelMapper modelMapper = new ModelMapper();
         try {
             return new ResponseEntity<>(modelMapper.map(personneService.getById(id), PersonneDto.class), HttpStatus.OK);
@@ -44,7 +44,7 @@ public class PersonneController {
     }
 
     @PostMapping("/personne")
-    public ResponseEntity<PersonneDto> saveCodePromo(@RequestBody PersonneDto personne) {
+    public ResponseEntity<PersonneDto> savePersonne(@RequestBody PersonneDto personne) {
         ModelMapper modelMapper = new ModelMapper();
         try {
             Personne entity = modelMapper.map(personne, Personne.class);
@@ -56,7 +56,7 @@ public class PersonneController {
     }
 
     @PutMapping("/personne")
-    public ResponseEntity<PersonneDto> updateOption(@RequestBody PersonneDto personne) {
+    public ResponseEntity<PersonneDto> updatePersonne(@RequestBody PersonneDto personne) {
         ModelMapper modelMapper = new ModelMapper();
         try {
             personneService.update(modelMapper.map(personne, Personne.class));
@@ -67,7 +67,7 @@ public class PersonneController {
     }
 
     @DeleteMapping("/personnes/{id}")
-    public ResponseEntity<String> deleteOption(@PathVariable(name = "id") String id) {
+    public ResponseEntity<String> deletePersonne(@PathVariable(name = "id") String id) {
         try {
             personneService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);

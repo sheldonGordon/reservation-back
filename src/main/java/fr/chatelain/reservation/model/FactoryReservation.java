@@ -60,4 +60,10 @@ public class FactoryReservation {
     public static Role getInstanceRole(String libelle) {
         return new Role(libelle);
     }
+
+    public static Compte getInstanceCompte(){ return new Compte(); }
+
+    public static Compte getInstanceCompte(Personne personne, List<Role> roles){
+        return new Compte(personne, roles);
+    }
 }

@@ -22,7 +22,7 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping("/roles")
-    public ResponseEntity<List<RoleDto>> getAllOptions(){
+    public ResponseEntity<List<RoleDto>> getAllRoles(){
         List<RoleDto> listRoleDto = new ArrayList<>(0);
         ModelMapper modelMapper = new ModelMapper();
         try {
@@ -34,7 +34,7 @@ public class RoleController {
     }
 
     @GetMapping("/roles/{id}")
-    public ResponseEntity<RoleDto> getOption(@PathVariable(name = "id") String id){
+    public ResponseEntity<RoleDto> getRole(@PathVariable(name = "id") String id){
         ModelMapper modelMapper = new ModelMapper();
         try {
             return new ResponseEntity<>(modelMapper.map(roleService.getById(id), RoleDto.class), HttpStatus.OK);
@@ -44,7 +44,7 @@ public class RoleController {
     }
 
     @PostMapping("/role")
-    public ResponseEntity<RoleDto> saveOption(@RequestBody RoleDto role) {
+    public ResponseEntity<RoleDto> saveRole(@RequestBody RoleDto role) {
         ModelMapper modelMapper = new ModelMapper();
         try {
             Role entity = modelMapper.map(role, Role.class);
@@ -56,7 +56,7 @@ public class RoleController {
     }
 
     @PutMapping("/role")
-    public ResponseEntity<RoleDto> updateOption(@RequestBody RoleDto role) {
+    public ResponseEntity<RoleDto> updateRole(@RequestBody RoleDto role) {
         ModelMapper modelMapper = new ModelMapper();
         try {
             roleService.update(modelMapper.map(role, Role.class));
@@ -67,7 +67,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/roles/{id}")
-    public ResponseEntity<String> deleteOption(@PathVariable(name = "id") String id) {
+    public ResponseEntity<String> deleteRole(@PathVariable(name = "id") String id) {
         try {
             roleService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
