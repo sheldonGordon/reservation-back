@@ -54,4 +54,10 @@ public class FactoryReservation {
     public static Personne getInstancePersonne(String nom, String prenom) {
         return new Personne(nom, prenom);
     }
+
+    public static Role getInstanceRole() { return new Role(); }
+
+    public static Role getInstanceRole(String libelle) {
+        return new Role(libelle);
+    }
 }
