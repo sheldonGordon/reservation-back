@@ -80,4 +80,12 @@ public class FactoryReservation {
     public static Compte getInstanceCompte(Personne personne, List<Role> roles) {
         return new Compte(personne, roles);
     }
+
+    public static Reservation getInstanceReservation() {
+        return new Reservation();
+    }
+
+    public static Reservation getInstanceReservation(DateDebutFin dateDebutfin, Chambre chambre, List<Option> options, Compte client, boolean annulation, CodePromo promotion) {
+        return new Reservation(dateDebutfin, chambre, options, client, annulation, promotion);
+    }
 }
