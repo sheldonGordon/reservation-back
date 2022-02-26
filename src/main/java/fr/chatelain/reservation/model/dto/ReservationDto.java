@@ -6,6 +6,7 @@ import java.util.List;
 
 @Data
 public class ReservationDto {
+    private String id;
     private DateDebutFinDto dateDebutfin;
     private ChambreDto chambre;
     private List<OptionDto> options;

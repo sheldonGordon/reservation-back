@@ -66,7 +66,7 @@ public class ReservationController {
         }
     }
 
-    @DeleteMapping("/reservation/{id}")
+    @DeleteMapping("/reservations/{id}")
     public ResponseEntity<String> deleteReservation(@PathVariable(name = "id") String id) {
         try {
             reservationService.deleteById(id);
