@@ -22,7 +22,7 @@ import fr.chatelain.reservation.model.ChambreService;
 import fr.chatelain.reservation.model.dto.ChambreServiceDto;
 import fr.chatelain.reservation.service.ChambreServicesService;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class ChambreServicesController {
