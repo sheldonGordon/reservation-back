@@ -39,7 +39,7 @@ public class PhotosController {
     public ResponseEntity<PhotosDto> getPhotos(@PathVariable(name = "id") String id) {
         ModelMapper modelMapper = new ModelMapper();
         try {
-            return new ResponseEntity<>(modelMapper.map(photosService.getById(id), PhotosDto.class),
+            return new ResponseEntity<>(modelMapper.map(photosService.getById(id).get(), PhotosDto.class),
                     HttpStatus.OK);
         } catch (RepositoryExeption e) {
             return new ResponseEntity<>(new PhotosDto(), HttpStatus.NO_CONTENT);

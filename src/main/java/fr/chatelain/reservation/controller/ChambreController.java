@@ -38,7 +38,7 @@ public class ChambreController {
     public ResponseEntity<ChambreDto> getChambre(@PathVariable(name = "id") String id){
         ModelMapper modelMapper = new ModelMapper();
         try{
-            return new ResponseEntity<>(modelMapper.map(chambreService.getById(id), ChambreDto.class), HttpStatus.OK);
+            return new ResponseEntity<>(modelMapper.map(chambreService.getById(id).get(), ChambreDto.class), HttpStatus.OK);
         }catch (RepositoryExeption e){
             return new ResponseEntity<>(new ChambreDto(), HttpStatus.NO_CONTENT);
         }

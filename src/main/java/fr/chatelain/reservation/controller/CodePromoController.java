@@ -37,7 +37,7 @@ public class CodePromoController {
     public ResponseEntity<CodePromoDto> getCodePromo(@PathVariable(name = "id") String id){
         ModelMapper modelMapper = new ModelMapper();
         try {
-            return new ResponseEntity<>(modelMapper.map(codePromoService.getById(id), CodePromoDto.class), HttpStatus.OK);
+            return new ResponseEntity<>(modelMapper.map(codePromoService.getById(id).get(), CodePromoDto.class), HttpStatus.OK);
         } catch (RepositoryExeption e) {
             return new ResponseEntity<>(new CodePromoDto(), HttpStatus.NO_CONTENT);
         }

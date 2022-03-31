@@ -37,7 +37,7 @@ public class RoleController {
     public ResponseEntity<RoleDto> getRole(@PathVariable(name = "id") String id){
         ModelMapper modelMapper = new ModelMapper();
         try {
-            return new ResponseEntity<>(modelMapper.map(roleService.getById(id), RoleDto.class), HttpStatus.OK);
+            return new ResponseEntity<>(modelMapper.map(roleService.getById(id).get(), RoleDto.class), HttpStatus.OK);
         } catch (RepositoryExeption e) {
             return new ResponseEntity<>(new RoleDto(), HttpStatus.NO_CONTENT);
         }

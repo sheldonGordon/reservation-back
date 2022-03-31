@@ -37,7 +37,7 @@ public class PersonneController {
     public ResponseEntity<PersonneDto> getPersonne(@PathVariable(name = "id") String id){
         ModelMapper modelMapper = new ModelMapper();
         try {
-            return new ResponseEntity<>(modelMapper.map(personneService.getById(id), PersonneDto.class), HttpStatus.OK);
+            return new ResponseEntity<>(modelMapper.map(personneService.getById(id).get(), PersonneDto.class), HttpStatus.OK);
         } catch (RepositoryExeption e) {
             return new ResponseEntity<>(new PersonneDto(), HttpStatus.NO_CONTENT);
         }

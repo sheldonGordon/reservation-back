@@ -37,7 +37,7 @@ public class ReservationController {
     public ResponseEntity<ReservationDto> getReservation(@PathVariable(name = "id") String id){
         ModelMapper modelMapper = new ModelMapper();
         try {
-            return new ResponseEntity<>(modelMapper.map(reservationService.getById(id), ReservationDto.class), HttpStatus.OK);
+            return new ResponseEntity<>(modelMapper.map(reservationService.getById(id).get(), ReservationDto.class), HttpStatus.OK);
         } catch (RepositoryExeption e) {
             return new ResponseEntity<>(new ReservationDto(), HttpStatus.NO_CONTENT);
         }

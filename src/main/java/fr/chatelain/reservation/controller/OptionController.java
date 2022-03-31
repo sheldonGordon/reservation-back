@@ -37,7 +37,7 @@ public class OptionController {
     public ResponseEntity<OptionDto> getOption(@PathVariable(name = "id") String id){
         ModelMapper modelMapper = new ModelMapper();
         try {
-            return new ResponseEntity<>(modelMapper.map(optionService.getById(id), OptionDto.class), HttpStatus.OK);
+            return new ResponseEntity<>(modelMapper.map(optionService.getById(id).get(), OptionDto.class), HttpStatus.OK);
         } catch (RepositoryExeption e) {
             return new ResponseEntity<>(new OptionDto(), HttpStatus.NO_CONTENT);
         }

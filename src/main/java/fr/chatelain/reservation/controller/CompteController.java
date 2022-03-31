@@ -37,7 +37,7 @@ public class CompteController {
     public ResponseEntity<CompteDto> getCompte(@PathVariable(name = "id") String id){
         ModelMapper modelMapper = new ModelMapper();
         try {
-            return new ResponseEntity<>(modelMapper.map(compteService.getById(id), CompteDto.class), HttpStatus.OK);
+            return new ResponseEntity<>(modelMapper.map(compteService.getById(id).get(), CompteDto.class), HttpStatus.OK);
         } catch (RepositoryExeption e) {
             return new ResponseEntity<>(new CompteDto(), HttpStatus.NO_CONTENT);
         }
